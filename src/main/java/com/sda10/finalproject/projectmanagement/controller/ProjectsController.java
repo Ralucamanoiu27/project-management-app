@@ -1,13 +1,13 @@
 package com.sda10.finalproject.projectmanagement.controller;
 
 import com.sda10.finalproject.projectmanagement.dto.ProjectDto;
+import com.sda10.finalproject.projectmanagement.exception.NotFoundException;
 import com.sda10.finalproject.projectmanagement.model.Project;
 import com.sda10.finalproject.projectmanagement.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,7 +31,20 @@ public class ProjectsController {
                 .setAdministrator(project.getAdministrator());
     }
 
-//    @GetMapping
+    @GetMapping("/projects/{id}")
+    public ResponseEntity<ProjectDto> getProjectById(@PathVariable Long id){
+        Project project= projectService.getProjectById(id)
+                .orElseThrow(NotFoundException::new);
+
+        ProjectDto response = ProjectDto.projectDto()
+                .setId(project.getId())
+                .setName(project.getName())
+                .setDescription(project.getDescripton())
+                .setAdministrator(project.getAdministrator());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+ }
 
 
 }

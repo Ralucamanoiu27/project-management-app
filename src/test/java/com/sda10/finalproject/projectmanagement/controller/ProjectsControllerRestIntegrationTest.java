@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 
 public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
 
@@ -45,6 +47,12 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
             .setDescription(expectedProject.getDescripton())
             .setAdministrator(expectedProject.getAdministrator());
 
+    String relativePath="/projects/" + expectedProject.getId();
+    ResponseEntity<ProjectDto> response=this.restTemplate.getForEntity(relativePath,ProjectDto.class);
+
+    Assertions.assertEquals(expectedResult, response.getBody());
+    Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 }
+
 
 }
