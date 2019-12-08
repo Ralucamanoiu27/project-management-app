@@ -14,45 +14,65 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
 
-        @Autowired
-        private ProjectRepository repository;
+    @Autowired
+    private ProjectRepository repository;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
     public void WhenAPostRequestIsReceived_thenAprojectIsCreated() {
-            String RelativePath="/projects";
+        String RelativePath = "/projects";
 
-            ProjectDto expectedProject=ProjectDto.projectDto()
-                    .setName("proiect1")
-                    .setDescription("aaaa")
-                    .setAdministrator("admin1");
+        ProjectDto expectedProject = ProjectDto.projectDto()
+                .setName("proiect1")
+                .setDescription("aaaa")
+                .setAdministrator("admin1");
 
-            ResponseEntity<ProjectDto> response = this.restTemplate
-                    .postForEntity(url(RelativePath), expectedProject,ProjectDto.class);
-            Assertions.assertEquals(expectedProject.setId(response.getBody().id),response.getBody());
+        ResponseEntity<ProjectDto> response = this.restTemplate
+                .postForEntity(url(RelativePath), expectedProject, ProjectDto.class);
+        Assertions.assertEquals(expectedProject.setId(response.getBody().id), response.getBody());
     }
-@Test
+
+    @Test
     public void givenExistingId_whenGetPorjectById_thenReturnProject() {
 
-    Project expectedProject=new Project();
-    expectedProject.setName("project3");
-    expectedProject=repository.saveAndFlush(expectedProject);
+        Project expectedProject = new Project();
+        expectedProject.setName("project3");
+        expectedProject = repository.saveAndFlush(expectedProject);
 
-    ProjectDto expectedResult=ProjectDto
-            .projectDto()
-            .setId(expectedProject.getId())
-            .setName(expectedProject.getName())
-            .setDescription(expectedProject.getDescripton())
-            .setAdministrator(expectedProject.getAdministrator());
+        ProjectDto expectedResult = ProjectDto
+                .projectDto()
+                .setId(expectedProject.getId())
+                .setName(expectedProject.getName())
+                .setDescription(expectedProject.getDescripton())
+                .setAdministrator(expectedProject.getAdministrator());
 
-    String relativePath="/projects/" + expectedProject.getId();
-    ResponseEntity<ProjectDto> response=this.restTemplate.getForEntity(relativePath,ProjectDto.class);
+        String relativePath = "/projects/" + expectedProject.getId();
+        ResponseEntity<ProjectDto> response = this.restTemplate.getForEntity(relativePath, ProjectDto.class);
 
-    Assertions.assertEquals(expectedResult, response.getBody());
-    Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-}
+        Assertions.assertEquals(expectedResult, response.getBody());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void givenExistingId_whenUpdateProjectById_thenSaveNewProjectDetails() {
+        Project newProject = new Project();
+        newProject.setName("project3");
+        newProject = repository.saveAndFlush(newProject);
 
 
+        ProjectDto expectedResult = ProjectDto
+                .projectDto()
+                .setName("project4");
+
+        String relativePath = "/projects/" + newProject.getId();
+        this.restTemplate.put(relativePath, expectedResult);
+
+        Project p = repository.findById(newProject.getId()).get();
+
+        Assertions.assertEquals("project4",p.getName());
+
+
+    }
 }

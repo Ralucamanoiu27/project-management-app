@@ -32,8 +32,8 @@ public class ProjectsController {
     }
 
     @GetMapping("/projects/{id}")
-    public ResponseEntity<ProjectDto> getProjectById(@PathVariable Long id){
-        Project project= projectService.getProjectById(id)
+    public ResponseEntity<ProjectDto> getProjectById(@PathVariable Long id) {
+        Project project = projectService.getProjectById(id)
                 .orElseThrow(NotFoundException::new);
 
         ProjectDto response = ProjectDto.projectDto()
@@ -42,9 +42,20 @@ public class ProjectsController {
                 .setDescription(project.getDescripton())
                 .setAdministrator(project.getAdministrator());
 
-            return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+    @PutMapping("/projects/{id}")
+    public ResponseEntity updateProject(@PathVariable Long id, @RequestBody ProjectDto projectDetails){
+        Project project=new Project();
+        project.setName(projectDetails.name)
+                .setDescripton(projectDetails.description)
+                .setAdministrator(projectDetails.administrator);
+        projectService.updateProject(id, project);
+
+        return new ResponseEntity<>(HttpStatus.OK);
 
  }
-
 
 }

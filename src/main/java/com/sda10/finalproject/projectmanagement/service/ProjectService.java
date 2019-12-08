@@ -12,12 +12,26 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository){
-        this.projectRepository=projectRepository;
+    public ProjectService(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
-    public Project createProject(Project project){
+    public Project createProject(Project project) {
         return projectRepository.save(project);
     }
-    public Optional<Project> getProjectById(Long id){ return projectRepository.findById(id);}
+
+    public Optional<Project> getProjectById(Long id) {
+        return projectRepository.findById(id);
+    }
+
+    public Project updateProject(Long id, Project project) {
+        Optional<Project> projectOptional = projectRepository.findById(id);
+
+        if (projectOptional.isPresent()) {
+            project.setId(id);
+            return projectRepository.save(project);
+        } else {
+            throw new RuntimeException("Project with id does not exist: " + id);
+        }
+    }
 }
