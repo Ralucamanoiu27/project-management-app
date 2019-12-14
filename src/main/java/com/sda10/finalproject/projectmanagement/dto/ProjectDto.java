@@ -1,5 +1,7 @@
 package com.sda10.finalproject.projectmanagement.dto;
 
+import com.sda10.finalproject.projectmanagement.model.User;
+
 import java.util.Objects;
 
 public class ProjectDto {

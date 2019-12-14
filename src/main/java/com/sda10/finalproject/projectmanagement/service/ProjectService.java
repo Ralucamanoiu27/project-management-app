@@ -34,4 +34,10 @@ public class ProjectService {
             throw new RuntimeException("Project with id does not exist: " + id);
         }
     }
+    public void deleteProject (Long id) {
+        Project existingProject = projectRepository
+                .findById(id)
+                .orElseThrow(RuntimeException::new);
+        projectRepository.delete(existingProject);
+    }
 }
