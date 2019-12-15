@@ -25,8 +25,11 @@ public class Project {
     @Column
     private String descripton;
 
-    @Column
-    private String administrator;
+
+    @ManyToOne
+    @JoinColumn(name="administrator_id", referencedColumnName = "id")
+    @NotNull
+    private User administrator;
 
     public Long getId() {
         return id;
@@ -55,13 +58,17 @@ public class Project {
         return this;
     }
 
-    public String getAdministrator() {
+    public User getAdministrator() {
         return administrator;
     }
 
-    public Project setAdministrator(String administrator) {
-        this.administrator = administrator;
-        return this;
+    public Project setAdministrator(User administrator) {
+        if(administrator.getRole()==Role.ADMIN) {
+            this.administrator = administrator;
+
+            return this;
+        }
+        throw new IllegalArgumentException("This user doesn't have the role admin");
     }
 
     @Override

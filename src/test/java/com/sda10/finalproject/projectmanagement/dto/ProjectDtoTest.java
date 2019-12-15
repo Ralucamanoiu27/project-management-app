@@ -1,6 +1,8 @@
 package com.sda10.finalproject.projectmanagement.dto;
 
 import com.sda10.finalproject.projectmanagement.UnitTest;
+import com.sda10.finalproject.projectmanagement.model.Role;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,13 +15,13 @@ public class ProjectDtoTest extends UnitTest {
                 .setId(123L)
                 .setName("proiect1")
                 .setDescription("aaaa")
-                .setAdministrator("admin1");
+                .setAdministrator(UserDto.userDto());
 
         ProjectDto projectDto2=ProjectDto.projectDto()
                 .setId(123L)
                 .setName("proiect1")
                 .setDescription("aaaa")
-                .setAdministrator("admin1");
+                .setAdministrator(UserDto.userDto());
 
         boolean comparisionResult=projectDto1.equals(projectDto2);
         assertTrue(comparisionResult);
@@ -68,15 +70,14 @@ public class ProjectDtoTest extends UnitTest {
     @Test
     public void givenTwoProjectsWithDifferentAdministrator_whenComparedTheResultIsFalse() {
         ProjectDto projectDto1=ProjectDto.projectDto()
-                .setAdministrator("admin1");
-
+                .setAdministrator(UserDto.userDto().setId(1l));
 
         ProjectDto projectDto2=ProjectDto.projectDto()
-                .setAdministrator("admin2");;
+                .setAdministrator(UserDto.userDto().setId(2l));;
 
 
         boolean comparisionResult=projectDto1.equals(projectDto2);
-        assertFalse(comparisionResult);
+        Assertions.assertFalse(comparisionResult);
     }
 
 

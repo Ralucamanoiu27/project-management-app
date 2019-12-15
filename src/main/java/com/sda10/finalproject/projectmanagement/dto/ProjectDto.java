@@ -1,6 +1,6 @@
 package com.sda10.finalproject.projectmanagement.dto;
 
-import com.sda10.finalproject.projectmanagement.model.User;
+
 
 import java.util.Objects;
 
@@ -8,7 +8,7 @@ public class ProjectDto {
     public Long id;
     public String name;
     public String description;
-    public String administrator;
+    public UserDto administrator;
 
     private ProjectDto() {
     }
@@ -30,7 +30,7 @@ public class ProjectDto {
         return this;
     }
 
-    public ProjectDto setAdministrator(String administrator) {
+    public ProjectDto setAdministrator(UserDto administrator) {
         this.administrator = administrator;
         return this;
     }
@@ -50,4 +50,6 @@ public class ProjectDto {
     public int hashCode() {
         return Objects.hash(id, name, description, administrator);
     }
+
+
 }

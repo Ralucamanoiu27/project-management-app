@@ -5,9 +5,11 @@ import com.sda10.finalproject.projectmanagement.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProjectService {
     private final ProjectRepository projectRepository;
 

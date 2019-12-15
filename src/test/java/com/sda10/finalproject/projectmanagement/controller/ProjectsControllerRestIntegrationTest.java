@@ -2,16 +2,24 @@ package com.sda10.finalproject.projectmanagement.controller;
 
 import com.sda10.finalproject.projectmanagement.RestIntegrationTest;
 import com.sda10.finalproject.projectmanagement.dto.ProjectDto;
-import com.sda10.finalproject.projectmanagement.dto.UserDto;
+import com.sda10.finalproject.projectmanagement.dto.ProjectMapper;
+import com.sda10.finalproject.projectmanagement.dto.UserMapper;
 import com.sda10.finalproject.projectmanagement.model.Project;
+import com.sda10.finalproject.projectmanagement.model.Role;
+import com.sda10.finalproject.projectmanagement.model.User;
 import com.sda10.finalproject.projectmanagement.repository.ProjectRepository;
+import com.sda10.finalproject.projectmanagement.repository.UserRepository;
+import com.sda10.finalproject.projectmanagement.service.ProjectService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Optional;
+
+import static com.sda10.finalproject.projectmanagement.controller.ProjectsController.API_PROJECTS;
 
 public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
 
@@ -19,61 +27,129 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
     private ProjectRepository repository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private TestRestTemplate restTemplate;
 
-    @Test
-    public void WhenAPostRequestIsReceived_thenAprojectIsCreated() {
-        String RelativePath = "/projects";
-
-        ProjectDto expectedProject = ProjectDto.projectDto()
-                .setName("proiect1")
-                .setDescription("aaaa")
-                .setAdministrator("admin1");
-
-        ResponseEntity<ProjectDto> response = this.restTemplate
-                .postForEntity(url(RelativePath), expectedProject, ProjectDto.class);
-        Assertions.assertEquals(expectedProject.setId(response.getBody().id), response.getBody());
-    }
+    @Autowired
+    private ProjectMapper projectMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
-    public void givenExistingId_whenGetPorjectById_thenReturnProject() {
+    public void givenProjectDetails_whenPostRequestIsReceived_ThenCreateNewProjectDetails() {
 
-        Project expectedProject = new Project();
-        expectedProject.setName("project3");
-        expectedProject = repository.saveAndFlush(expectedProject);
+        User user = new User();
+        user.setUserName("raluca")
+                .setPassword("123")
+                .setRole(Role.ADMIN);
+        user = userRepository.save(user);
 
-        ProjectDto expectedResult = ProjectDto
-                .projectDto()
-                .setId(expectedProject.getId())
-                .setName(expectedProject.getName())
-                .setDescription(expectedProject.getDescripton())
-                .setAdministrator(expectedProject.getAdministrator());
+        ProjectDto expectedResult = ProjectDto.projectDto()
+                .setName("proiect4")
+                .setDescription("bbbb")
+                .setAdministrator(userMapper.toDto(user));
+        String relativePath = API_PROJECTS;
+        ResponseEntity<ProjectDto> response = this.restTemplate.postForEntity(url(relativePath), expectedResult, ProjectDto.class);
 
-        String relativePath = "/projects/" + expectedProject.getId();
-        ResponseEntity<ProjectDto> response = this.restTemplate.getForEntity(relativePath, ProjectDto.class);
-
+        expectedResult.setId(response.getBody().id);
+        //then
         Assertions.assertEquals(expectedResult, response.getBody());
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+
+
     }
 
     @Test
-    public void givenExistingId_whenUpdateProjectById_thenSaveNewProjectDetails() {
-        Project newProject = new Project();
-        newProject.setName("project3");
-        newProject = repository.saveAndFlush(newProject);
+    public void givenEsxistingId_whenGetProjectById_ThenReturnProject() {
+        User user = new User();
+        user.setUserName("raluca")
+                .setPassword("123")
+                .setRole(Role.ADMIN);
+        user = userRepository.save(user);
+
+        Project expectedProject = new Project();
+
+        expectedProject.setName("project3")
+                .setDescripton("aaaa")
+                .setAdministrator(user);
+
+        expectedProject = repository.save(expectedProject);
+
+        ResponseEntity<ProjectDto> response = this.restTemplate
+                .getForEntity(API_PROJECTS + "/" + expectedProject.getId(), ProjectDto.class);
+
+        ProjectDto newProjectDto = response.getBody();
+        Optional<Project> newProject = this.repository.findById(newProjectDto.id);
+        Assertions.assertTrue(newProject.isPresent());
+        Assertions.assertEquals(newProjectDto.setId(newProjectDto.id), newProjectDto);
+    }
+
+    @Test
+    public void givenProjectDetails_whenPutRequestIsReceived_ThenUpdateNewProjectDetails() {
+        User user = new User();
+        user.setUserName("raluca")
+                .setPassword("123")
+                .setRole(Role.ADMIN);
+        user = userRepository.save(user);
+
+        Project existingProject = new Project();
+
+        existingProject.setName("project3")
+                .setDescripton("aaaa")
+                .setAdministrator(user);
+
+        existingProject = repository.save(existingProject);
+
+        ProjectDto newProject = projectMapper.toDto(existingProject)
+                .setName("project4")
+                .setDescription("bbbb");
+
+        String relativePath = API_PROJECTS + "/" + newProject.id;
+        this.restTemplate.put(relativePath, newProject);
+
+        Optional<Project> updateProject = this.repository.findById(newProject.id);
+
+        Assertions.assertTrue(updateProject.isPresent());
+        Assertions.assertEquals(newProject, projectMapper.toDto(updateProject.get()));
+
+    }
+
+    @Test
+    public void givenNonExistingid_whwnGetProjectsByID_ThenStatusCodeIsInternalServerEror() {
+        long nonExistingId = 1L;
+
+        String relativePath = API_PROJECTS + "/" + nonExistingId;
+        HttpStatus statusCode = this.restTemplate
+                .getForEntity(url(relativePath), ProjectDto.class)
+                .getStatusCode();
+
+        Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, statusCode);
+    }
+
+    @Test
+    public void givenProjectDetails_whenDeleteRequestIsReceived_ThenProjectIsDeleted() {
+        User user = new User();
+        user.setUserName("raluca")
+                .setPassword("123")
+                .setRole(Role.ADMIN);
+        user = userRepository.save(user);
+
+        Project existingProject = new Project();
+
+        existingProject.setName("project3")
+                .setDescripton("aaaa")
+                .setAdministrator(user);
+
+        existingProject = repository.save(existingProject);
 
 
-        ProjectDto expectedResult = ProjectDto
-                .projectDto()
-                .setName("project4");
+        String relativePath = API_PROJECTS + "/" + existingProject.getId();
+        this.restTemplate.delete(relativePath, existingProject.getId());
 
-        String relativePath = "/projects/" + newProject.getId();
-        this.restTemplate.put(relativePath, expectedResult);
+        Optional<Project> updateProject = this.repository.findById(existingProject.getId());
 
-        Project p = repository.findById(newProject.getId()).get();
-
-        Assertions.assertEquals("project4",p.getName());
-
-
+        Assertions.assertFalse(updateProject.isPresent());
     }
 }
