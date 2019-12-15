@@ -38,6 +38,7 @@ public class Task {
     @NotNull
     private Progress progress;
 
+
     @ManyToOne
     @JoinColumn(name="assignPerson_id", referencedColumnName = "id")
     @NotNull
@@ -96,6 +97,23 @@ public class Task {
         this.progress = progress;
         return this;
     }
+
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
+    }
+
+    public User getAssignPerson() {
+        return assignPerson;
+    }
+
+    public void setAssignPerson(User assignPerson) {
+        this.assignPerson = assignPerson;
+    }
+
 
     @Override
     public boolean equals(Object o) {

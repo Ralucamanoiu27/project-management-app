@@ -13,7 +13,7 @@ public class TaskDto {
     public String storyPoints;
     // @ManyToOne
     public Progress progress;
-    public String assignPerson; // users
+    public UserDto assignPerson; // users
 
     private TaskDto() {
 
@@ -57,7 +57,7 @@ public class TaskDto {
         return this;
     }
 
-    public TaskDto setAssignPerson(String assignPerson) {
+    public TaskDto setAssignPerson(UserDto assignPerson) {
         this.assignPerson = assignPerson;
         return this;
     }
