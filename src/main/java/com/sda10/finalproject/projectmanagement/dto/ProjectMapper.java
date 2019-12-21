@@ -23,7 +23,7 @@ public class ProjectMapper {
         project.setAdministrator(user);
         project.setId(projectDto.id);
         project.setName(projectDto.name);
-        project.setDescripton(projectDto.description);
+        project.setDescription(projectDto.description);
 
 
         return project;
@@ -34,7 +34,7 @@ public class ProjectMapper {
         return ProjectDto.projectDto()
                 .setId(project.getId())
                 .setName(project.getName())
-                .setDescription(project.getDescripton())
+                .setDescription(project.getDescription())
                 .setAdministrator(userDto);
     }
 

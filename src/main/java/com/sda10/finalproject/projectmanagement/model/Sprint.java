@@ -2,6 +2,7 @@ package com.sda10.finalproject.projectmanagement.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -23,11 +24,11 @@ public class Sprint {
 
     @Column
     @NotNull
-    private String dateFrom;
+    private LocalDate dateFrom;
 
     @Column
     @NotNull
-    private String dateTo;
+    private LocalDate dateTo;
 
     @Column
     private String plannedStoryPoint;
@@ -45,11 +46,11 @@ public class Sprint {
         return project;
     }
 
-    public String getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public String getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
@@ -62,12 +63,12 @@ public class Sprint {
         return this;
     }
 
-    public Sprint setDateFrom(String dateFrom) {
+    public Sprint setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
         return this;
     }
 
-    public Sprint setDateTo(String dateTo) {
+    public Sprint setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
         return this;
     }

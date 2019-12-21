@@ -1,5 +1,6 @@
 package com.sda10.finalproject.projectmanagement.dto;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class SprintDto {
@@ -10,8 +11,8 @@ public class SprintDto {
     public ProjectDto projectDto;
 
 
-   public String dateFrom;
-   public String dateTo;
+   public LocalDate dateFrom;
+   public LocalDate dateTo;
    public String plannedStoryPoint;
 
    private SprintDto() {
@@ -25,12 +26,12 @@ public class SprintDto {
         return this;
     }
 
-    public SprintDto setDateFrom(String dateFrom) {
+    public SprintDto setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
         return this;
     }
 
-    public SprintDto setDateTo(String dateTo) {
+    public SprintDto setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
         return this;
     }

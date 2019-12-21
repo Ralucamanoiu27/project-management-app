@@ -23,7 +23,7 @@ public class Project {
 
 
     @Column
-    private String descripton;
+    private String description;
 
 
     @ManyToOne
@@ -49,12 +49,12 @@ public class Project {
         return this;
     }
 
-    public String getDescripton() {
-        return descripton;
+    public String getDescription() {
+        return description;
     }
 
-    public Project setDescripton(String descripton) {
-        this.descripton = descripton;
+    public Project setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -78,13 +78,13 @@ public class Project {
         Project proiect = (Project) o;
         return Objects.equals(id, proiect.id) &&
                 Objects.equals(name, proiect.name) &&
-                Objects.equals(descripton, proiect.descripton) &&
+                Objects.equals(description, proiect.description) &&
                 Objects.equals(administrator, proiect.administrator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, descripton, administrator);
+        return Objects.hash(id, name, description, administrator);
     }
 
 

@@ -9,7 +9,6 @@ import com.sda10.finalproject.projectmanagement.model.Role;
 import com.sda10.finalproject.projectmanagement.model.User;
 import com.sda10.finalproject.projectmanagement.repository.ProjectRepository;
 import com.sda10.finalproject.projectmanagement.repository.UserRepository;
-import com.sda10.finalproject.projectmanagement.service.ProjectService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +41,8 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
 
         User user = new User();
         user.setUserName("raluca")
-                .setPassword("123")
-                .setRole(Role.ADMIN);
+                    .setPassword("123")
+                    .setRole(Role.ADMIN);
         user = userRepository.save(user);
 
         ProjectDto expectedResult = ProjectDto.projectDto()
@@ -71,7 +70,7 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
         Project expectedProject = new Project();
 
         expectedProject.setName("project3")
-                .setDescripton("aaaa")
+                .setDescription("aaaa")
                 .setAdministrator(user);
 
         expectedProject = repository.save(expectedProject);
@@ -96,7 +95,7 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
         Project existingProject = new Project();
 
         existingProject.setName("project3")
-                .setDescripton("aaaa")
+                .setDescription("aaaa")
                 .setAdministrator(user);
 
         existingProject = repository.save(existingProject);
@@ -138,7 +137,7 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
         Project existingProject = new Project();
 
         existingProject.setName("project3")
-                .setDescripton("aaaa")
+                .setDescription("aaaa")
                 .setAdministrator(user);
 
         existingProject = repository.save(existingProject);
