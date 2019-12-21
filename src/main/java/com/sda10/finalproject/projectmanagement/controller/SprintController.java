@@ -18,7 +18,7 @@ import static com.sda10.finalproject.projectmanagement.controller.SprintControll
 @RestController
 @RequestMapping(API_SPRINT)
 public class SprintController {
-        public static  final String API_SPRINT="api/sprints";
+        public static  final String API_SPRINT="/api/sprints";
         private final SprintMapper sprintMapper;
         private final SprintService sprintService;
 

@@ -16,7 +16,7 @@ import static com.sda10.finalproject.projectmanagement.controller.UserController
 @RequestMapping(API_USERS)
 public class UserController {
 
-    public static  final String API_USERS="api/users";
+    public static  final String API_USERS="/api/users";
     private final UserMapper userMapper;
     private final UserService userService;
 

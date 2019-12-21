@@ -73,13 +73,12 @@ public class ProjectDtoTest extends UnitTest {
                 .setAdministrator(UserDto.userDto().setId(1l));
 
         ProjectDto projectDto2=ProjectDto.projectDto()
-                .setAdministrator(UserDto.userDto().setId(2l));;
+                .setAdministrator(UserDto.userDto().setId(2l));
 
 
         boolean comparisionResult=projectDto1.equals(projectDto2);
         Assertions.assertFalse(comparisionResult);
     }
-
 
 
 }

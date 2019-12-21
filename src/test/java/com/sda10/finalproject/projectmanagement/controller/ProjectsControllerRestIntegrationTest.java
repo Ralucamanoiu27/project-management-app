@@ -58,11 +58,10 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
         Assertions.assertEquals(expectedResult, response.getBody());
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 
-
     }
 
     @Test
-    public void givenEsxistingId_whenGetProjectById_ThenReturnProject() {
+    public void givenExistingId_whenGetProjectById_ThenReturnProject() {
         User user = new User();
         user.setUserName("raluca")
                 .setPassword("123")
@@ -117,7 +116,7 @@ public class ProjectsControllerRestIntegrationTest extends RestIntegrationTest {
     }
 
     @Test
-    public void givenNonExistingid_whwnGetProjectsByID_ThenStatusCodeIsInternalServerEror() {
+    public void givenNonExistingId_whenGetProjectsByID_ThenStatusCodeIsInternalServerError() {
         long nonExistingId = 1L;
 
         String relativePath = API_PROJECTS + "/" + nonExistingId;
