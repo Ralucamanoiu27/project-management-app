@@ -42,4 +42,14 @@ public class UserService {
         userRepository.delete(existingUser);
     }
 
+    public Optional<User> searchUserByNameOrEmail(String name, String email) {
+        if (name != null) {
+            return userRepository.findByUserName(name);
+        }
+        if (email != null) {
+            return userRepository.findByEmail(email);
+        }
+        return Optional.empty();
+    }
+
 }

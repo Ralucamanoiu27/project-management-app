@@ -16,7 +16,7 @@ import static com.sda10.finalproject.projectmanagement.controller.UserController
 @RequestMapping(API_USERS)
 public class UserController {
 
-    public static  final String API_USERS="/api/users";
+    public static final String API_USERS = "/api/users";
     private final UserMapper userMapper;
     private final UserService userService;
 
@@ -29,31 +29,43 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        User user =userService.getUserById(id)
+        User user = userService.getUserById(id)
                 .orElseThrow(NotFoundException::new);
-        UserDto response=userMapper.toDto(user);
-        return  new ResponseEntity<>(response, HttpStatus.OK);
+        UserDto response = userMapper.toDto(user);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser (@RequestBody UserDto details) {
-        User user=userMapper.toEntity(details);
-        user=userService.createUser(user);
-        UserDto response=userMapper.toDto(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto details) {
+        User user = userMapper.toEntity(details);
+        user = userService.createUser(user);
+        UserDto response = userMapper.toDto(user);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateUser(@PathVariable Long id, @RequestBody UserDto newDetails){
-        User user=userMapper.toEntity(newDetails);
-        userService.updateUser(id,user);
+    public ResponseEntity updateUser(@PathVariable Long id, @RequestBody UserDto newDetails) {
+        User user = userMapper.toEntity(newDetails);
+        userService.updateUser(id, user);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<UserDto> searchUserByNameOrEmail(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email) {
+        User user = userService.searchUserByNameOrEmail(name, email)
+                .orElseThrow(NotFoundException::new);
+
+        UserDto response = userMapper.toDto(user);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

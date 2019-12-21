@@ -58,14 +58,14 @@ public class UserControllerRestIntegrationTest extends RestIntegrationTest {
     @Test
     public void givenUserDetails_whenPostRequestIsReceived_ThenCreateNewUserDetails() {
 
-      User user = new User();
-                user.setUserName("Raluca")
-                     .setPassword("123")
-                     .setRole(Role.ADMIN)
-                        .setEmail("aaa@yahoo.com")
-                        .setDisplayedName("Ana Are mere");
+        User user = new User();
+        user.setUserName("Raluca")
+                .setPassword("123")
+                .setRole(Role.ADMIN)
+                .setEmail("aaa@yahoo.com")
+                .setDisplayedName("Ana Are mere");
 
-       user = userRepository.save(user);
+        user = userRepository.save(user);
 
         UserDto expectedResult = UserDto.userDto()
                 .setUserName("cristina")
@@ -98,7 +98,7 @@ public class UserControllerRestIntegrationTest extends RestIntegrationTest {
                 .setPassword("1");
 
         /// nu e bine
-        expectedUser =userRepository.save(user);
+        expectedUser = userRepository.save(user);
 
         ResponseEntity<UserDto> response = this.restTemplate
                 .getForEntity(API_USERS + "/" + expectedUser.getId(), UserDto.class);
@@ -108,6 +108,7 @@ public class UserControllerRestIntegrationTest extends RestIntegrationTest {
         //Assertions.assertTrue(updateUser.isPresent());
         Assertions.assertEquals(newUserDto.setId(newUserDto.id), newUserDto);
     }
+
     @Test
     public void givenUserDetails_whenDeleteRequestIsReceived_ThenUserIsDeleted() {
 
@@ -147,6 +148,32 @@ public class UserControllerRestIntegrationTest extends RestIntegrationTest {
         Assertions.assertEquals(newUser, userMapper.toDto(updateProject.get()));
 
     }
+
+    @Test
+    public void givenUserDetails_whenSearchUserByNameOrEmail_ThenDisplayIfNotFoundNull() {
+        User user = new User();
+        user.setUserName("raluca")
+                .setPassword("12334")
+                .setRole(Role.USER);
+
+
+        User user1 = new User();
+        user1.setUserName("cristina")
+                .setPassword("12789")
+                .setRole(Role.USER);
+
+        user = userRepository.save(user);
+        user1 = userRepository.save(user1);
+
+        String relativePath = API_USERS + "?name=" + user1.getUserName();
+
+        UserDto expectedResponse = userMapper.toDto(user1);
+        ResponseEntity<UserDto> response = this.restTemplate.getForEntity(url(relativePath), UserDto.class);
+
+        Assertions.assertEquals(expectedResponse, response.getBody());
+    }
+
+
 }
 
 
