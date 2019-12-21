@@ -151,6 +151,6 @@ public class SprintControllerRestIntegrationTest extends RestIntegrationTest {
         Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-
+    //se verificat restul in afara de create
 
 }
