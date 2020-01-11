@@ -9,12 +9,14 @@ import { HomeComponent } from './features/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material/material.module';
+import { UserComponent } from './features/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

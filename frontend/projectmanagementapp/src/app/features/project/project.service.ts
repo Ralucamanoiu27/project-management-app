@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class ProjectService {
 
-private readonly  PROJECT_API = `${environment.serverApiUrl}/project`;
+private readonly  PROJECT_API = `${environment.serverApiUrl}/api/projects`;
   constructor(private httpClient: HttpClient) {}
 
   saveProject(project: Project): Observable<Project> {
