@@ -1,13 +1,12 @@
 <p>project works!</p>
 <form class="example-form">
   <mat-form-field class="example-full-width">
-    <input matInput name="name" placeholder="Name" value="name" [(ngModel)]="name" >
+    <input matInput name="name" placeholder="Name" [(ngModel)]="name" >
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Descriere" [(ngModel)]="description" ></textarea>
+    <textarea matInput name="description" placeholder="Description" [(ngModel)]="description" ></textarea>
   </mat-form-field>
-
 
     <button mat-raised-button color="accent" (click)="saveProject()">Create</button>
 
