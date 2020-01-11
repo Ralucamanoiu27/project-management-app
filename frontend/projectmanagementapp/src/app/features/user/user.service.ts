@@ -18,4 +18,11 @@ private readonly  USER_API = `${environment.serverApiUrl}/api/users`;
     return this.httpClient.post<User>(this.USER_API, user);
   }
 
+  searchUserByName(nameParam: string) {
+    return this.httpClient.get<User[]>(this.USER_API + '/search', {
+    params: { name: nameParam }
+  });
+
+}
+
 }

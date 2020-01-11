@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.sda10.finalproject.projectmanagement.controller.UserController.API_USERS;
 
 @RestController
@@ -66,6 +69,14 @@ public class UserController {
 
         UserDto response = userMapper.toDto(user);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public List<UserDto> searchUserByNameOrEmail(@RequestParam(required = false) String name) {
+       return userService.searchByUserName(name)
+               .stream()
+               .map(userMapper::toDto)
+               .collect(Collectors.toList());
     }
 
 }

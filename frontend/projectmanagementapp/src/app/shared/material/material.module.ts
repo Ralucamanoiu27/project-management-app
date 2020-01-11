@@ -24,7 +24,8 @@ import {
   MatGridListModule,
   MatDatepickerModule,
   MatProgressBarModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatAutocompleteModule
 } from '@angular/material';
 @NgModule({
   declarations: [],
@@ -33,9 +34,11 @@ import {
     MatDialogModule,
     MatTabsModule,
     MatBadgeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatAutocompleteModule
   ],
   exports: [
+    MatAutocompleteModule,
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
