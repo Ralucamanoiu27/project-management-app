@@ -25,7 +25,8 @@ import {
   MatDatepickerModule,
   MatProgressBarModule,
   MatSidenavModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatTableModule
 } from '@angular/material';
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import {
     MatTabsModule,
     MatBadgeModule,
     MatExpansionModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTableModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -62,7 +64,8 @@ import {
     MatTabsModule,
     MatBadgeModule,
     MatExpansionModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {}

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,5 +44,10 @@ public class ProjectService {
                 .findById(id)
                 .orElseThrow(RuntimeException::new);
         projectRepository.delete(existingProject);
+    }
+
+
+    public List<Project> findAll() {
+        return projectRepository.findAll();
     }
 }

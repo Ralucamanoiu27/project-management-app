@@ -13,10 +13,19 @@ import { Observable } from 'rxjs';
 export class ProjectService {
 
 private readonly  PROJECT_API = `${environment.serverApiUrl}/api/projects`;
+
   constructor(private httpClient: HttpClient) {}
 
   saveProject(project: Project): Observable<Project> {
     return this.httpClient.post<Project>(this.PROJECT_API, project);
+  }
+  getAllProjects(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(this.PROJECT_API);
+
+  }
+
+  deleteProject(id: number): Observable<Project> {
+    return this.httpClient.delete<Project>(this.PROJECT_API + `/${id}` );
   }
 }
 

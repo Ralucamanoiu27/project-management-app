@@ -10,13 +10,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material/material.module';
 import { UserComponent } from './features/user/user.component';
+import { ProjectsOverviewComponent } from './features/projects-overview/projects-overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectComponent,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    ProjectsOverviewComponent
   ],
   imports: [
     BrowserModule,

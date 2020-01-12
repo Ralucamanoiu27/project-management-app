@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.sda10.finalproject.projectmanagement.controller.ProjectsController.API_PROJECTS;
 
 
@@ -63,6 +66,12 @@ public class ProjectsController {
         projectService.deleteProject(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @GetMapping
+    public List<ProjectDto> searchAll( ) {
+        return projectService.findAll()
+                .stream()
+                .map(projectMapper::toDto)
+                .collect(Collectors.toList());
+    }
 
 }
