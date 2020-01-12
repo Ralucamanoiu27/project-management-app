@@ -27,6 +27,14 @@ private readonly  PROJECT_API = `${environment.serverApiUrl}/api/projects`;
   deleteProject(id: number): Observable<Project> {
     return this.httpClient.delete<Project>(this.PROJECT_API + `/${id}` );
   }
+  getProjectById(id: number): Observable<Project> {
+    return this.httpClient.get<Project>(this.PROJECT_API + `/${id}`);
+
+  }
+  updateProject(id: number, project: Project): Observable<Project> {
+    return this.httpClient.put<Project>(this.PROJECT_API + `/${id}`, project);
+
+  }
 }
 
 

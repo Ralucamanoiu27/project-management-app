@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material/material.module';
 import { UserComponent } from './features/user/user.component';
 import { ProjectsOverviewComponent } from './features/projects-overview/projects-overview.component';
+import { ProjectEditComponent } from './features/project-edit/project-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProjectsOverviewComponent } from './features/projects-overview/projects
     ProjectComponent,
     HomeComponent,
     UserComponent,
-    ProjectsOverviewComponent
+    ProjectsOverviewComponent,
+    ProjectEditComponent
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,7 @@ export class ProjectsOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.projects = this.projectService.getAllProjects();
-    this.columnsToDisplay = ['id', 'name', 'description', 'administrator','actions'];
+    this.columnsToDisplay = ['id', 'name', 'description', 'administrator', 'actions'];
 
   }
 deleteProject(id: number){
