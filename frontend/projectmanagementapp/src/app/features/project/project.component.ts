@@ -1,11 +1,12 @@
+import { User } from './../../shared/model/user';
 import { UserService } from './../user/user.service';
 import { Project } from './../../shared/model/project';
 import { ProjectService } from './project.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { User } from 'src/app/shared/model/user';
 
-import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith, flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-project',
@@ -29,7 +30,8 @@ export class ProjectComponent implements OnInit {
 
 
   saveProject() {
-    const project = new Project(null, this.name, this.description);
+    const user = this.myControl.value;
+    const project = new Project(null, this.name, this.description, user);
     this.projectService.saveProject(project)
     .subscribe(result => console.log(result));
   }
@@ -40,7 +42,7 @@ export class ProjectComponent implements OnInit {
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
-        map(name => this.userService.searchUserByName(name))
+        flatMap(name => this.userService.searchUserByName(name))
       );
   }
 
