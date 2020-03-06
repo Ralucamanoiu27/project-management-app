@@ -1,12 +1,19 @@
 import { map, flatMap, startWith } from 'rxjs/operators';
 import { ProjectService } from './../project/project.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Project } from 'src/app/shared/model/project';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/model/user';
 import { UserService } from '../user/user.service';
+import {MatTooltipDefaultOptions} from "@angular/material/tooltip";
+
+export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+  showDelay: 1000,
+  hideDelay: 1000,
+  touchendHideDelay: 1000,
+};
 
 @Component({
   selector: 'app-project-edit',
@@ -19,7 +26,7 @@ export class ProjectEditComponent implements OnInit {
   myControl = new FormControl();
   filteredOptions: Observable<User[]>;
 
-  constructor(private activatedRoute: ActivatedRoute, private projectService: ProjectService, private userService: UserService) { }
+  constructor(private activatedRoute: ActivatedRoute, private projectService: ProjectService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params
@@ -27,7 +34,7 @@ export class ProjectEditComponent implements OnInit {
       map(params => params['id']),
       flatMap(id => this.projectService.getProjectById(id))
     )
-    .subscribe(project => { 
+    .subscribe(project => {
       this.project = project;
       this.myControl.setValue(project.administrator);
     });
@@ -46,5 +53,7 @@ export class ProjectEditComponent implements OnInit {
     this.projectService.updateProject(this.project.id, this.project)
     .subscribe(result => console.log('ok'),
     error => console.log(error));
+    this.router.navigateByUrl('/projects-overview');
+
   }
 }

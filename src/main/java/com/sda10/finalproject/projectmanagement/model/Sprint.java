@@ -17,11 +17,6 @@ public class Sprint {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="project_id", referencedColumnName = "id")
-    @NotNull
-    private Project project;
-
     @Column
     @NotNull
     private LocalDate dateFrom;
@@ -32,6 +27,11 @@ public class Sprint {
 
     @Column
     private String plannedStoryPoint;
+
+    @ManyToOne
+    @JoinColumn(name="project_id", referencedColumnName = "id")
+    @NotNull
+    private Project project;
 
     public Long getId() {
         return id;
@@ -87,11 +87,12 @@ public class Sprint {
         return Objects.equals(id, sprint.id) &&
                 Objects.equals(dateFrom, sprint.dateFrom) &&
                 Objects.equals(dateTo, sprint.dateTo) &&
-                Objects.equals(plannedStoryPoint, sprint.plannedStoryPoint);
+                Objects.equals(plannedStoryPoint, sprint.plannedStoryPoint) &&
+                Objects.equals(project, sprint.project);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateFrom, dateTo, plannedStoryPoint);
+        return Objects.hash(id,  dateFrom, dateTo, plannedStoryPoint, project);
     }
 }

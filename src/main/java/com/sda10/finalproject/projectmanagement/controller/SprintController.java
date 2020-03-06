@@ -1,5 +1,6 @@
 package com.sda10.finalproject.projectmanagement.controller;
 
+import com.sda10.finalproject.projectmanagement.dto.ProjectDto;
 import com.sda10.finalproject.projectmanagement.dto.ProjectMapper;
 import com.sda10.finalproject.projectmanagement.dto.SprintDto;
 import com.sda10.finalproject.projectmanagement.dto.SprintMapper;
@@ -38,11 +39,15 @@ public class SprintController {
     }
 
     @PostMapping
-    public ResponseEntity<SprintDto> createSprint(@RequestBody SprintDto details) {
+   // public ResponseEntity<SprintDto> createSprint(@RequestBody SprintDto details) {
+    public SprintDto createSprint(@RequestBody SprintDto details){
         Sprint sprint = sprintMapper.toEntity(details);
         sprint = sprintService.createSprint(sprint);
-        SprintDto response = sprintMapper.toDto(sprint);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        //SprintDto response = sprintMapper.toDto(sprint);
+       // return new ResponseEntity<>(response, HttpStatus.OK);
+        //cele doua linii de mai sus sunt inlocuite cu linia de jos
+        return sprintMapper.toDto(sprint);
+
     }
 
     @PutMapping("/{id}")

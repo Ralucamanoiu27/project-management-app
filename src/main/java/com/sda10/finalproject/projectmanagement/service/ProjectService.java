@@ -1,6 +1,7 @@
 package com.sda10.finalproject.projectmanagement.service;
 
 import com.sda10.finalproject.projectmanagement.model.Project;
+import com.sda10.finalproject.projectmanagement.model.User;
 import com.sda10.finalproject.projectmanagement.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,25 @@ public class ProjectService {
     }
 
 
-    public List<Project> findAll() {
-        return projectRepository.findAll();
-    }
+//    public Optional<Project> searchProjectByName(String name ) {
+//        if (name != null) {
+//            return projectRepository.findByProjectName(name);
+//        }
+//
+//        return Optional.empty();
+//    }
+
+//    public Optional<Project> searchProjectByNameProject(String project){
+//        if(project != null){
+//            return projectRepository.findByProjectName(project);
+//        }
+//        return  Optional.empty();
+//    }
+//    public List<Project> searchByProjectName(String name) {
+//        return projectRepository.findByProjectNameContaining(name);
+//    }
+
+      public List<Project> findAll() {return projectRepository.findAll();}
+
+
 }

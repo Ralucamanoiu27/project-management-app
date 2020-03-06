@@ -1,0 +1,54 @@
+<p>task works!xxxx</p>
+
+<form class="example-form">
+
+  <mat-form-field class="example-full-width">
+    <input matInput name="nameTask" placeholder="nameTask" [(ngModel)]="nameTask" >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput name="descriptionTask" placeholder="descriptionTask" [(ngModel)]="descriptionTask" ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput name="sprin" placeholder="sprint" [(ngModel)]="sprint" ></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>dificulty</mat-label>
+    <mat-select [(value)]="dificulty" >
+      <mat-option *ngFor="let dificulty of dificultes" [value]="dificulty" >
+        {{dificulty}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput name="storyPoints" placeholder="storyPoints" [(ngModel)]="storyPoints" >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>progress</mat-label>
+    <mat-select [(value)]="progress" >
+      <mat-option *ngFor="let progress of progresses" [value]="progress" >
+        {{progress}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Admin" aria-label="Admin" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.displayedName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+
+    <button mat-raised-button color="accent" (click)="saveTask()"  matTooltip="Salveaza datele">Create</button>
+
+
+
+</form>

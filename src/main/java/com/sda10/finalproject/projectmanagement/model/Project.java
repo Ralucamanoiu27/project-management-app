@@ -75,11 +75,11 @@ public class Project {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Project proiect = (Project) o;
-        return Objects.equals(id, proiect.id) &&
-                Objects.equals(name, proiect.name) &&
-                Objects.equals(description, proiect.description) &&
-                Objects.equals(administrator, proiect.administrator);
+        Project project = (Project) o;
+        return Objects.equals(id, project.id) &&
+                Objects.equals(name, project.name) &&
+                Objects.equals(description, project.description) &&
+                Objects.equals(administrator, project.administrator);
     }
 
     @Override

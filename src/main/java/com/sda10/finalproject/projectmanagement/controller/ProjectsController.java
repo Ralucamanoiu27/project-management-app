@@ -4,6 +4,7 @@ import com.sda10.finalproject.projectmanagement.dto.ProjectDto;
 import com.sda10.finalproject.projectmanagement.dto.ProjectMapper;
 import com.sda10.finalproject.projectmanagement.exception.NotFoundException;
 import com.sda10.finalproject.projectmanagement.model.Project;
+import com.sda10.finalproject.projectmanagement.repository.ProjectRepository;
 import com.sda10.finalproject.projectmanagement.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ import static com.sda10.finalproject.projectmanagement.controller.ProjectsContro
 @RestController
 @RequestMapping(API_PROJECTS)
 public class ProjectsController {
+
+
 
     public static final String API_PROJECTS="/api/projects";
     @Autowired
@@ -66,12 +69,30 @@ public class ProjectsController {
         projectService.deleteProject(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping
     public List<ProjectDto> searchAll( ) {
-        return projectService.findAll()
-                .stream()
-                .map(projectMapper::toDto)
-                .collect(Collectors.toList());
-    }
+    return projectService.findAll()
+       .stream()
+       .map(projectMapper::toDto)
+               .collect(Collectors.toList());
+  }
+
+//    @GetMapping
+//    public ResponseEntity<ProjectDto> searchProjectByNameProject(@RequestParam(required = false) String name) {
+//        Project project =projectService.searchProjectByNameProject(name).orElseThrow(NotFoundException::new);
+//        ProjectDto response =projectMapper.toDto(project);
+//        return new ResponseEntity<>(response,HttpStatus.OK);
+//
+//    }
+
+//
+//    @GetMapping("/search")
+//    public List<ProjectDto> searchProjectByName(@RequestParam(required = false) String name) {
+//        return projectService.searchByProjectName(name)
+//                .stream()
+//                .map(projectMapper::toDto)
+//                .collect(Collectors.toList());
+//    }
 
 }

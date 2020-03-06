@@ -3,10 +3,11 @@ import { UserService } from './../user/user.service';
 import { Project } from './../../shared/model/project';
 import { ProjectService } from './project.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { map, startWith, flatMap } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-project',
@@ -14,6 +15,8 @@ import { map, startWith, flatMap } from 'rxjs/operators';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
+
+
 
   name: string;
   description: string;
@@ -25,16 +28,8 @@ export class ProjectComponent implements OnInit {
 
 
   constructor(private projectService: ProjectService,
-              private userService: UserService) { }
+              private userService: UserService, private router: Router) { }
 
-
-
-  saveProject() {
-    const user = this.myControl.value;
-    const project = new Project(null, this.name, this.description, user);
-    this.projectService.saveProject(project)
-    .subscribe(result => console.log(result));
-  }
 
 
   ngOnInit() {
@@ -49,5 +44,18 @@ export class ProjectComponent implements OnInit {
   displayFn(user?: User): string | undefined {
     return user ? user.displayedName : undefined;
   }
-}
 
+  saveProject() {
+    const user = this.myControl.value;
+    const project = new Project(null, this.name, this.description, user);
+    this.projectService.saveProject(project)
+      // .subscribe(result => console.log(result));
+      .subscribe(result => console.log('ok'),
+        error => console.log(error));
+    //return to table
+   this.router.navigateByUrl('/projects-overview');
+
+
+  }
+
+}

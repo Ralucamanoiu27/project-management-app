@@ -14,7 +14,8 @@ public class SprintMapper {
 
     public Sprint toEntity(SprintDto sprintDto) {
         Sprint sprint = new Sprint();
-        Project project = projectMapper.toEntity(sprintDto.projectDto);
+
+        Project project = projectMapper.toEntity(sprintDto.project);
 
         sprint.setProject(project)
                 .setDateFrom(sprintDto.dateFrom)
@@ -28,11 +29,12 @@ public class SprintMapper {
         ProjectDto projectDto = projectMapper.toDto(sprint.getProject());
         return SprintDto.sprintDto()
                 .setId(sprint.getId())
-                .setProjectDto(projectDto)
                 .setDateFrom(sprint.getDateFrom())
                 .setDateTo(sprint.getDateTo())
-                .setPlannedStoryPoint(sprint.getPlannedStoryPoint());
+                .setPlannedStoryPoint(sprint.getPlannedStoryPoint())
+                .setProjectDto(projectDto);
     }
 }
+
 
 

@@ -12,6 +12,12 @@ import { MaterialModule } from './shared/material/material.module';
 import { UserComponent } from './features/user/user.component';
 import { ProjectsOverviewComponent } from './features/projects-overview/projects-overview.component';
 import { ProjectEditComponent } from './features/project-edit/project-edit.component';
+import { SprintComponent } from './features/sprint/sprint.component';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatInputModule } from "@angular/material/input";
+import { TaskComponent } from './features/task/task.component';
+
+
 
 @NgModule({
   declarations: [
@@ -20,7 +26,9 @@ import { ProjectEditComponent } from './features/project-edit/project-edit.compo
     HomeComponent,
     UserComponent,
     ProjectsOverviewComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    SprintComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +37,9 @@ import { ProjectEditComponent } from './features/project-edit/project-edit.compo
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

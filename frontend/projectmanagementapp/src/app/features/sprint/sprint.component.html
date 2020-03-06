@@ -1,0 +1,53 @@
+<p>sprint works!</p>
+
+<form class="form-group">
+  <!-- <mat-form-field class="example-full-width">
+    <input matInput name="name" placeholder="ProjectName" [(ngModel)]="name" >
+  </mat-form-field> -->
+
+  <mat-form-field class="example-full-width">
+    <input placeholder="proiect" aria-label="proiect" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <input matInput name="name" placeholder="dateTo" [(ngModel)]="dateTo" type="date">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput name="name" placeholder="dateFrom" [(ngModel)]="dateFrom" type="date" >
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput name="name" placeholder="plannedStoryPoint" [(ngModel)]="plannedStoryPoint" >
+  </mat-form-field>
+
+
+<!--  <mat-form-field>-->
+<!--    <mat-label>Verbose datepicker</mat-label>-->
+<!--    <input matInput [(ngModel)]="Date" [matDatepicker]="dateTo" >-->
+<!--    <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker #Date></mat-datepicker>-->
+<!--  </mat-form-field>-->
+<!--  <mat-form-field>-->
+<!--    <mat-label>Verbose datepicker</mat-label>-->
+<!--    <input matInput [matDatepicker]="Date" [(ngModel)]="dateFrom">-->
+<!--    <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker #Date></mat-datepicker>-->
+<!--  </mat-form-field>-->
+
+<!--  <mat-form-field>-->
+<!--    <input matInput [matDatepicker]="myDatepicker">-->
+<!--    <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker #myDatepicker></mat-datepicker>-->
+<!--  </mat-form-field>-->
+
+
+  <button mat-raised-button color="accent" (click)="saveSprint()"  matTooltip="Salveaza datele">Create</button>
+
+
+
+</form>
